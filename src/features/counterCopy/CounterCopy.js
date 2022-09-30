@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   decrement,
   increment,
-  incrementByAmount,
   incrementAsync,
+  incrementByAmount,
   incrementIfOdd,
   selectCount,
-} from "./counterSlice";
-import styles from "./Counter.module.css";
-import { Link } from "react-router-dom";
+} from "../counterCopy/counterCopySlice";
+import styles from "./CounterCopy.module.css";
 
-export function Counter() {
+function CounterCopy() {
   const count = useSelector(selectCount);
   const dispatch = useDispatch();
   const [incrementAmount, setIncrementAmount] = useState("2");
@@ -19,36 +19,36 @@ export function Counter() {
 
   return (
     <div>
-      <Link className="btn" to="/counterCopy">
-        Counter-copy
+      <Link className="btn" to="/">
+        Counter
       </Link>
       <div className={styles.row}>
         <button
+          onClick={() => dispatch(decrement())}
           className={styles.button}
           aria-label="Decrement value"
-          onClick={() => dispatch(decrement())}
         >
           -
         </button>
         <span className={styles.value}>{count}</span>
         <button
+          onClick={() => dispatch(increment())}
           className={styles.button}
           aria-label="Increment value"
-          onClick={() => dispatch(increment())}
         >
           +
         </button>
       </div>
       <div className={styles.row}>
         <input
-          className={styles.textbox}
-          aria-label="Set increment amount"
           value={incrementAmount}
           onChange={(e) => setIncrementAmount(e.target.value)}
+          className={styles.textbox}
+          aria-label="Set increment amount"
         />
         <button
-          className={styles.button}
           onClick={() => dispatch(incrementByAmount(incrementValue))}
+          className={styles.button}
         >
           Add Amount
         </button>
@@ -68,3 +68,5 @@ export function Counter() {
     </div>
   );
 }
+
+export default CounterCopy;
